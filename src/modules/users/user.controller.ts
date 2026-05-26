@@ -49,9 +49,7 @@ const getAllUser =async (req: Request, res: Response) => {
 const getSingleUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const result = await pool.query(`
-      SELECT * FROM users WHERE id=$1
-      `, [id])
+   const result =await userService.getSingleuserFromDB(id as string)
     if (result.rows.length === 0) {
       res.status(404).json({
         seccess: false,

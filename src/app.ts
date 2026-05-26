@@ -3,6 +3,7 @@ import express, {type Application, type Request, type Response } from 'express'
 import config from './config/env';
 import { initDB, pool } from './db';
 import { userRoute } from './modules/users/user.route';
+import { issueRoute } from './modules/issues/issues.route';
 
 
 
@@ -23,13 +24,14 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use('/api/users', userRoute)
+app.use('/api/issues', issueRoute)
 
 
-app.get('/api/users', userRoute)
+// app.get('/api/users', userRoute)
 
-app.get('/api/users/:id', userRoute)
+// app.get('/api/users/:id', userRoute)
 
-app.put('/api/users/:id', userRoute)
-app.delete('/api/users/:id', userRoute)
+// app.put('/api/users/:id', userRoute)
+// app.delete('/api/users/:id', userRoute)
 
 export default app

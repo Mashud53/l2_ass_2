@@ -20,6 +20,15 @@ const createIssueIntoDB = async (payLoad: IIssue) => {
 
 }
 
+const getAllissuesFromDB = async()=>{
+     const result = await pool.query(`
+      SELECT * FROM issues;
+      `)
+        return result
+
+}
+
 export const IssueService = {
-    createIssueIntoDB
+    createIssueIntoDB,
+    getAllissuesFromDB
 }

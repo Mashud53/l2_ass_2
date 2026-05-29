@@ -4,6 +4,7 @@ import config from './config/env';
 import { initDB, pool } from './db';
 import { userRoute } from './modules/users/user.route';
 import { issueRoute } from './modules/issues/issues.route';
+import { authRoute } from './modules/auth/auth.rout';
 
 
 
@@ -25,13 +26,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/users', userRoute)
 app.use('/api/issues', issueRoute)
+app.use('/api/auth', authRoute)
 
-
-// app.get('/api/users', userRoute)
-
-// app.get('/api/users/:id', userRoute)
-
-// app.put('/api/users/:id', userRoute)
-// app.delete('/api/users/:id', userRoute)
 
 export default app

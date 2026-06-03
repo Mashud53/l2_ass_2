@@ -1,7 +1,6 @@
 
 import express, {type Application, type Request, type Response } from 'express'
-import config from './config/env';
-import { initDB, pool } from './db';
+
 import { userRoute } from './modules/users/user.route';
 import { issueRoute } from './modules/issues/issues.route';
 import { authRoute } from './modules/auth/auth.rout';

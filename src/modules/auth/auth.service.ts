@@ -3,6 +3,24 @@ import { pool } from "../../db"
 import type { AuthInterface } from "./auth.interface"
 import jwt from "jsonwebtoken"
 import config from "../../config/env";
+import type { IUser } from "../users/user.interface";
+
+const signInUserIntoDB = async (payLoad:IUser)=>{
+
+     const { name, email, password, role } = payLoad
+    
+        const hashPassword = await bcrypt.hash(password, 10)
+        console.log(hashPassword);
+        const result = await pool.query(
+            `
+        INSERT INTO users (name,email,password,role) 
+        VALUES($1,$2,$3, COALESCE($4, 'contributor'))
+        
+        RETURNING name,email,role
+        `, [name, email, hashPassword, role]
+        )
+        return result
+}
 
 const loginUserIntoDB = async (payload: AuthInterface) => {
     const { email, password } = payload;
@@ -41,5 +59,6 @@ const loginUserIntoDB = async (payload: AuthInterface) => {
 }
 
 export const authService = {
+    signInUserIntoDB,
     loginUserIntoDB
 }

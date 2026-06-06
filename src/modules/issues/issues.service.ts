@@ -13,7 +13,8 @@ const createIssueIntoDB = async (payLoad: IIssue) => {
 
     const result = pool.query(`
             INSERT INTO issues(title, description, type, status, reporter_id
-            ) VALUES($1, $2, $3, $4, $5) RETURNING *
+            ) 
+            VALUES($1, $2, $3, COALESCE($4, 'open'), $5) RETURNING *
             `, [title, description, type, status, reporter_id])
     return result
 

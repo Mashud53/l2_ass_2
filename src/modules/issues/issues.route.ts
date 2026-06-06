@@ -1,13 +1,14 @@
 import { request, Router } from "express";
 import { issuController } from "./issues.controller";
+import auth from "../../middleware/auth";
 
 const router = Router()
 
-router.post('/', issuController.createIssue)
-router.get('/', issuController.getAllIssues)
-router.get('/:id', issuController.getSingleIssue)
-router.put('/:id', issuController.updateIssue)
-router.delete('/:id', issuController.deleteIssue)
+router.post('/',auth("maintainer", "contributor"), issuController.createIssue)
+router.get('/',auth("maintainer", "contributor"), issuController.getAllIssues)
+router.get('/:id',auth("maintainer", "contributor"), issuController.getSingleIssue)
+router.put('/:id', auth("maintainer", "contributor"), issuController.updateIssue)
+router.delete('/:id',auth("maintainer"), issuController.deleteIssue)
 
 
 

@@ -9,7 +9,9 @@ const createUserIntoDB = async (payLoad: IUser) => {
     console.log(hashPassword);
     const result = await pool.query(
         `
-    INSERT INTO users (name,email,password,role) VALUES($1,$2,$3,$4)
+    INSERT INTO users (name,email,password,role) 
+    VALUES($1,$2,$3, COALESCE($4, 'contributor'))
+    
     RETURNING name,email,role
     `, [name, email, hashPassword, role]
     )
